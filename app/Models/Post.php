@@ -10,8 +10,20 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'title',
         'image',
         'text',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
 }
