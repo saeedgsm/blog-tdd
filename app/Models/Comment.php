@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Comment extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'user_id',
-        'title',
-        'image',
         'text',
+        'commentable_id',
+        'commentable_type',
     ];
 
     public function user()
@@ -21,14 +21,8 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function tags()
+    public function commentable()
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->morphTo();
     }
-
-    public function comments()
-    {
-        return $this->morphMany(Comment::class,'commentable');
-    }
-
 }
